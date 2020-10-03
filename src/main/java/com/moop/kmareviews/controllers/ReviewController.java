@@ -1,38 +1,37 @@
 package com.moop.kmareviews.controllers;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.moop.kmareviews.entities.Review;
-import com.moop.kmareviews.repositories.ReviewRepo;
-import org.springframework.stereotype.Controller;
+import com.moop.kmareviews.entities.Views;
+import com.moop.kmareviews.services.ReviewService;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
-import java.util.LinkedList;
 import java.util.List;
 
 
 @RestController
 @RequestMapping("review")
 public class ReviewController {
-    private final ReviewRepo reviewRepo;
+    private final ReviewService reviewService;
 
-    public ReviewController(ReviewRepo reviewRepo) {
-        this.reviewRepo = reviewRepo;
+    public ReviewController(ReviewService reviewService) {
+        this.reviewService = reviewService;
     }
 
     @PostMapping
+    @JsonView(Views.Full.class)
     public Review addReview(@RequestBody Review review){
-        review.setSendTime(LocalDateTime.now());
-        return reviewRepo.save(review);
+        return reviewService.addReview(review);
     }
 
-    List<Review> list = new LinkedList<Review>()
-    {{
-        add(new Review(null, "sdsd", "sdasd", null));
-        add(new Review(null, "sdsjkkjd", "sdasjljld", null));
-
-    }};
     @GetMapping
+    @JsonView(Views.Full.class)
     public List<Review> getAllReviews(){
-        return list;
+        return reviewService.getAllReviews();
+    }
+
+    @GetMapping("{id}")
+    @JsonView(Views.Full.class)
+    public Review getReview(@PathVariable("id") Review review){
+        return review;
     }
 }

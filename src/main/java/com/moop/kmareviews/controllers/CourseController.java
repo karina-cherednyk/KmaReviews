@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.moop.kmareviews.entities.Course;
 import com.moop.kmareviews.entities.Views;
 import com.moop.kmareviews.services.ReviewService;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -19,11 +19,15 @@ public class CourseController {
         this.reviewService = reviewService;
     }
 
-    @PostMapping("/many")
+    @PostMapping("many")
     @JsonView(Views.Brief.class)
     public void addTeachers(@RequestBody Set<Course> courses){
         reviewService.addCourses(courses);
     }
+
+    @GetMapping
+    @JsonView(Views.Brief.class)
+    public List<Course> getAllCourses(){ return reviewService.getAllCourses(); }
 
     @PostMapping
     @JsonView(Views.Brief.class)
@@ -31,11 +35,11 @@ public class CourseController {
         return reviewService.addCourse(course);
     }
 
-    @DeleteMapping
-    @RequestMapping("/{id}")
+    @DeleteMapping("{id}")
     public void deleteCourse(@PathVariable Long id){
         reviewService.deleteCourse(id);
     }
+
     @GetMapping("{id}")
     @JsonView(Views.FullCourse.class)
     public Course getCourse(@PathVariable("id") Course course){

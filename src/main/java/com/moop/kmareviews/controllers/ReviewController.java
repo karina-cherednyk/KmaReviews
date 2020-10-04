@@ -42,7 +42,8 @@ public class ReviewController {
         return reviewService.getAllReviews(pageable);
     }
 
-
+    @DeleteMapping("{id}")
+    public void deleteReview(@PathVariable Long id){reviewService.deleteReview(id);}
 
     @GetMapping("{id}")
     @JsonView(Views.Full.class)

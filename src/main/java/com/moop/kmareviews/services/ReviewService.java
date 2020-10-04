@@ -72,5 +72,9 @@ public class ReviewService {
     public Course addCourse(Course course){     return  courseRepo.save(course);    }
     public void deleteTeacher(Long teacherId){  teacherRepo.deleteById(teacherId);}
     public void deleteCourse(Long courseId){    courseRepo.deleteById(courseId); }
+    public void deleteReview(Long reviewId){    reviewRepo.deleteById(reviewId); }
+
+    public List<Teacher> getAllTeachers(){return teacherRepo.findAll();}
+    public List<Course> getAllCourses(){return courseRepo.findAll();}
 
 }

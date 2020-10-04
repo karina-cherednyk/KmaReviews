@@ -1,7 +1,7 @@
 <template>
    <v-card>
        <v-card-text primary-title>
-    <i>({{ review.id }})</i> {{ review.teacher }} - {{ review.course }}
+    <i>({{ review.id }})</i> {{ review.text }}, {{ review.teacher }} , {{ review.course }}
 
     <span style="position: absolute; right: 0">
         </span>

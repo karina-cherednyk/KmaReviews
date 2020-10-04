@@ -1,34 +1,36 @@
 <template>
     <div> +
-        <input type="text" placeholder="Write something" v-model="teacher" />
-        <input type="text" placeholder="Write something" v-model="course" />
+        <input type="text" placeholder="teacher id" v-model="teacher" />
+        <input type="text" placeholder="course id" v-model="course" />
+        <input type="text" placeholder="text" v-model="text" />
         <input type="button" value="Save" @click="save" />
     </div>
 </template>
 
 <script>
-    import  Vue from 'vue'
-    import VueResource from 'vue-resource'
-    Vue.use(VueResource)
-    var reviewApi = Vue.resource('/review{/id}');
+    import { mapActions } from 'vuex'
 
     export default {
         name: "ReviewForm",
-        props: ['reviews'],
         data(){
             return{
-                teacher: '',
-                course: ''
+                teacher: null,
+                course: null,
+                text : ''
             }
         },
-        methods: {
+        methods:   {
+            ...mapActions(['addReviewAction']),
             save() {
-                const review = {teacher: this.teacher, course: this.course};
-                reviewApi.save({}, review).then(result =>
-                    result.json().then(data => {
-                        this.reviews.push(data);
-                        this.teacher = this.course = ''
-                    }))
+                const review = {
+                    text : this.text,
+                    teacher: {id: parseInt(this.teacher)},
+                    course: {id: parseInt(this.course)}
+                }
+                this.addReviewAction(review)
+                this.teacher = null
+                this.course = null
+                this.text = ''
             }
 
         }

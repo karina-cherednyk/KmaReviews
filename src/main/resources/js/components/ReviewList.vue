@@ -2,18 +2,19 @@
     <v-container>
         <v-layout align-space-around justify-start column>
 
-        <review-row v-for="review in reviews" :key="review.id" :review="review" />
+        <review-row v-for="review in sortedReviews" :key="review.id" :review="review" />
         </v-layout>
     </v-container>
 </template>
 
 <script>
     import ReviewRow from "components/ReviewRow.vue";
+    import { mapGetters } from 'vuex'
 
     export default {
         name: "ReviewList",
-        props: ["reviews"],
-        components: {ReviewRow}
+        components: {ReviewRow},
+        computed: mapGetters(['sortedReviews'])
     }
 </script>
 

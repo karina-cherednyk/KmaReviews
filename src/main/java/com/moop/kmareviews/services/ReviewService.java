@@ -2,10 +2,13 @@ package com.moop.kmareviews.services;
 
 import com.moop.kmareviews.entities.Course;
 import com.moop.kmareviews.entities.Review;
+import com.moop.kmareviews.entities.ReviewPage;
 import com.moop.kmareviews.entities.Teacher;
 import com.moop.kmareviews.repositories.CourseRepo;
 import com.moop.kmareviews.repositories.ReviewRepo;
 import com.moop.kmareviews.repositories.TeacherRepo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,6 +54,11 @@ public class ReviewService {
 
     public List<Review> getAllReviews() {
         return reviewRepo.findAll();
+    }
+
+    public ReviewPage getAllReviews(Pageable pageable) {
+        Page<Review> p = reviewRepo.findAll(pageable);
+        return new ReviewPage(p.getContent(), p.getNumber(), p.getTotalPages());
     }
 
     public void addTeachers(Set<Teacher> teachers){

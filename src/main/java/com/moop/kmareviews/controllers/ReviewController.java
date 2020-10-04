@@ -2,8 +2,12 @@ package com.moop.kmareviews.controllers;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.moop.kmareviews.entities.Review;
+import com.moop.kmareviews.entities.ReviewPage;
 import com.moop.kmareviews.entities.Views;
 import com.moop.kmareviews.services.ReviewService;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -12,6 +16,7 @@ import java.util.List;
 @RequestMapping("review")
 public class ReviewController {
     private final ReviewService reviewService;
+    public static final int PER_PAGE = 10;
 
     public ReviewController(ReviewService reviewService) {
         this.reviewService = reviewService;
@@ -28,6 +33,16 @@ public class ReviewController {
     public List<Review> getAllReviews(){
         return reviewService.getAllReviews();
     }
+
+    @GetMapping("page")
+    @JsonView(Views.Full.class)
+    public ReviewPage getAllReviews(
+            @PageableDefault(size = PER_PAGE, sort = { "id" }, direction = Sort.Direction.DESC) Pageable pageable
+    ) {
+        return reviewService.getAllReviews(pageable);
+    }
+
+
 
     @GetMapping("{id}")
     @JsonView(Views.Full.class)

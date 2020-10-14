@@ -11,7 +11,12 @@ export default new Vuex.Store({
     getters: {
         sortedReviews: state => (state.reviews || []).sort((a, b) => -(a.id - b.id)),
         sortedTeachers: state => (state.teachers || []).sort((a, b) => (a.name - b.name)),
-        teachersOptions: state => state.teachers.reduce((acc, x) => [...acc,{text: x.name, value: x}] , [])
+        teachersOptions: state => state.teachers.reduce((acc, x) => [...acc,{text: x.name, value: x}] , [{text: 'Оберіть викладача', value:null}]),
+        getPagesLinks: state => {
+            let pagesLink = []
+            for(let i =0; i<totalPages+1; i++) pagesLink.push('?page='+i)
+            return pagesLink
+        },
     },
     mutations: {
         addReviewMutation(state, review) {

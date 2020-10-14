@@ -41,6 +41,9 @@ public class ReviewController {
     @DeleteMapping("{id}")
     public void deleteReview(@PathVariable Long id){reviewService.deleteReview(id);}
 
+    @DeleteMapping
+    public void deleteAllReviews(){ reviewService.deleteAllReviews();}
+
     @GetMapping("{id}")
     public Review getReview(@PathVariable("id") Review review){
         return review;

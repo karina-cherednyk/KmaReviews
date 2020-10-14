@@ -2,8 +2,7 @@
         <b-input-group>
             <b-form-select v-model="selected" :options="teachersOptions"></b-form-select>
             <b-input-group-append class="pl-2">
-                <b-button variant="outline-light">Button</b-button>
-                <b-button variant="outline-light bg-success" >Button</b-button>
+                <b-button variant="outline-light bg-success" >Пошук</b-button>
             </b-input-group-append>
         </b-input-group>
 </template>
@@ -17,7 +16,6 @@
         data(){
             return {
                 selected: null,
-
             }
         }
     }

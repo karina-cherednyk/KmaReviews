@@ -59,7 +59,7 @@ public class ReviewService {
     public Teacher addTeacher(Teacher teacher){ return teacherRepo.save(teacher);   }
     public void deleteTeacher(Long teacherId){  teacherRepo.deleteById(teacherId);}
     public void deleteReview(Long reviewId){    reviewRepo.deleteById(reviewId); }
-
+    public void deleteAllReviews(){    reviewRepo.deleteAll(); }
     public List<Teacher> getAllTeachers(){return teacherRepo.findAll();}
 
 }

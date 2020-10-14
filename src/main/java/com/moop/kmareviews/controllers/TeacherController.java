@@ -22,6 +22,7 @@ public class TeacherController {
 
     @PostMapping("many")
     public void addTeachers(@RequestBody Set<Teacher> teachers){
+        System.out.println(teachers);
        reviewService.addTeachers(teachers);
     }
 

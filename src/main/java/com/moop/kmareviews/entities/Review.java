@@ -1,6 +1,7 @@
 package com.moop.kmareviews.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.*;
 
@@ -16,26 +17,17 @@ import java.time.LocalDateTime;
 @ToString(of = {"id"})
 public class Review{
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonView(Views.Brief.class)
     private Long id;
-
-    @JsonView(Views.Brief.class)
     private String text;
 
     @ManyToOne
     @JoinColumn(name = "teacher_id")
-    @JsonView(Views.Full.class)
     private Teacher teacher;
 
-    @ManyToOne
-    @JoinColumn(name = "course_id")
-    @JsonView(Views.Full.class)
-    private Course course;
 
     @Column(updatable = false)
-    @JsonView(Views.Full.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "hh:mm dd/mm/yyyy")
     private LocalDateTime sendTime;
 }

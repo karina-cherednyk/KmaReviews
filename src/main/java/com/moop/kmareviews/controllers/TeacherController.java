@@ -1,8 +1,5 @@
 package com.moop.kmareviews.controllers;
-
-import com.fasterxml.jackson.annotation.JsonView;
 import com.moop.kmareviews.entities.Teacher;
-import com.moop.kmareviews.entities.Views;
 import com.moop.kmareviews.services.ReviewService;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,21 +15,17 @@ public class TeacherController {
         this.reviewService = reviewService;
     }
 
-
     @PostMapping
-    @JsonView(Views.Brief.class)
     public Teacher addTeacher(@RequestBody Teacher teacher){
         return reviewService.addTeacher(teacher);
     }
 
     @PostMapping("many")
-    @JsonView(Views.Brief.class)
     public void addTeachers(@RequestBody Set<Teacher> teachers){
        reviewService.addTeachers(teachers);
     }
 
     @GetMapping
-    @JsonView(Views.Brief.class)
     public List<Teacher> getAllTeachers(){ return reviewService.getAllTeachers();}
 
     @DeleteMapping("{id}")
@@ -41,7 +34,6 @@ public class TeacherController {
     }
 
     @GetMapping("{id}")
-    @JsonView(Views.FullTeacher.class)
     public Teacher getTeacher(@PathVariable("id") Teacher teacher){
         return teacher;
     }

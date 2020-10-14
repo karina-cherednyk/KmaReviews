@@ -1,5 +1,5 @@
 <template>
-    <div> +
+    <div>
         <input type="text" placeholder="teacher id" v-model="teacher" />
         <input type="text" placeholder="course id" v-model="course" />
         <input type="text" placeholder="text" v-model="text" />

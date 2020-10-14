@@ -1,17 +1,23 @@
 <template>
-    <v-app>
-    <review-form  />
-    <review-list />
-    </v-app>
+    <b-container id="app" >
+        <b-navbar toggleable="lg" type="dark" variant="info">
+            <b-navbar-nav  class="col-md-6 ml-auto" >
+               <teacher-form />
+            </b-navbar-nav>
+        </b-navbar>
+        <review-list/>
+    </b-container>
 </template>
 
 <script>
-    import ReviewForm from "components/ReviewForm.vue";
+
+    import 'bootstrap/dist/css/bootstrap.css'
+    import 'bootstrap-vue/dist/bootstrap-vue.css'
+    import TeacherForm from "components/TeacherForm.vue";
     import ReviewList from "components/ReviewList.vue";
 
     export default {
-        name: "App",
-        components: {ReviewList, ReviewForm},
+        components: { TeacherForm, ReviewList}
     }
 </script>
 

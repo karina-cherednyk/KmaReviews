@@ -1,5 +1,6 @@
-package com.moop.kmareviews.entities;
+package com.moop.kmareviews.dto;
 
+import com.moop.kmareviews.entities.Review;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

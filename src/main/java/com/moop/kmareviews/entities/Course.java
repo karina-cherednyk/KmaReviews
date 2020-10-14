@@ -18,13 +18,9 @@ public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonView(Views.Brief.class)
     private Long id;
 
-    @JsonView(Views.Brief.class)
     private String name;
 
-    @ManyToMany(mappedBy = "possibleCourses", fetch = FetchType.EAGER)
-    @JsonView(Views.FullCourse.class)
-    private Set<Teacher> possibleTeachers = new HashSet<>();
+
 }

@@ -1,10 +1,7 @@
 <template>
-    <v-container>
-        <v-layout align-space-around justify-start column>
-
+    <b-container>
         <review-row v-for="review in sortedReviews" :key="review.id" :review="review" />
-        </v-layout>
-    </v-container>
+    </b-container>
 </template>
 
 <script>

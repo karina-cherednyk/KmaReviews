@@ -1,12 +1,10 @@
 <template>
-   <v-card>
-       <v-card-text primary-title>
-    <i>({{ review.id }})</i> {{ review.text }}, {{ review.teacher }} , {{ review.course }}
-
-    <span style="position: absolute; right: 0">
-        </span>
-       </v-card-text>
-   </v-card>
+    <b-card :title="review.teacher.name" :sub-title="review.sendTime">
+        <b-card-text>
+          {{ review.text }}
+        </b-card-text>
+        <b-link>Send review</b-link>
+    </b-card>
 </template>
 
 <script>

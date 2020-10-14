@@ -6,10 +6,12 @@ import reviewApi from "api/reviewApi";
 
 export default new Vuex.Store({
     state: {
-        reviews, totalPages, currentPage
+        teachers, reviews, totalPages, currentPage
     },
     getters: {
-        sortedReviews: state => (state.reviews || []).sort((a, b) => -(a.id - b.id))
+        sortedReviews: state => (state.reviews || []).sort((a, b) => -(a.id - b.id)),
+        sortedTeachers: state => (state.teachers || []).sort((a, b) => (a.name - b.name)),
+        teachersOptions: state => state.teachers.reduce((acc, x) => [...acc,{text: x.name, value: x}] , [])
     },
     mutations: {
         addReviewMutation(state, review) {

@@ -5,14 +5,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.moop.kmareviews.dto.ReviewPage;
 import com.moop.kmareviews.entities.Teacher;
+import com.moop.kmareviews.exceptions.NotUniqueTeacherNameException;
 import com.moop.kmareviews.services.ReviewService;
+import com.moop.kmareviews.services.TeacherService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,13 +23,15 @@ import java.util.List;
 public class MainController {
 
     private final ReviewService reviewService;
+    private final TeacherService teacherService;
     private final ObjectWriter reviewWriter;
 
     @Value("${activeProfile:prod}")
     private String profile;
 
-    public MainController(ReviewService reviewService, ObjectMapper mapper) {
+    public MainController(ReviewService reviewService, ObjectMapper mapper, TeacherService teacherService) {
         this.reviewService = reviewService;
+        this.teacherService = teacherService;
         ObjectMapper objectMapper = mapper.setConfig(mapper.getSerializationConfig());
         this.reviewWriter = objectMapper.writer();
     }
@@ -38,7 +42,7 @@ public class MainController {
 
         PageRequest pageRequest = PageRequest.of(0, ReviewController.PER_PAGE, sort);
         ReviewPage reviewPage = reviewService.getAllReviews(pageRequest);
-        List<Teacher> teacherList = reviewService.getAllTeachers();
+        List<Teacher> teacherList = teacherService.getAllTeachers();
 
         String reviews = reviewWriter.writeValueAsString(reviewPage.getReviews());
         String teachers = reviewWriter.writeValueAsString(teacherList);
@@ -51,4 +55,5 @@ public class MainController {
 
         return "index";
     }
+
 }

@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("review")
 public class ReviewController {
     private final ReviewService reviewService;
-    public static final int PER_PAGE = 10;
+    public static final int PER_PAGE = 5;
 
     public ReviewController(ReviewService reviewService) {
         this.reviewService = reviewService;

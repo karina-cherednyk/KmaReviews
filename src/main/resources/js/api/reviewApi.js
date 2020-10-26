@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 Vue.use(VueResource)
-const messages = Vue.resource('/review{/id}')
+const reviews = Vue.resource('/review{/id}')
 
 export default {
-    add: message => messages.save({}, message),
-    page: page => Vue.http.get('/message/page', {params: { page }})
+    add: message => reviews.save({}, message),
+    page: page => Vue.http.get('/review/page', {params: { page }}),
+    getByTeacher : teacher => Vue.http.get('/teacher/'+teacher+'/reviews'),
 }

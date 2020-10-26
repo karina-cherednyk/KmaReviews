@@ -7,16 +7,16 @@
              <b-nav >
                  <teacher-form class="form-inline mt-2 mb-2"/>
              </b-nav>
-             <review-list />
+             <router-view></router-view>
          </b-col>
         <b-col lg="4">
             <review-form  class="mb-4"/>
             <problems-form/>
         </b-col>
     </b-row>
-    <b-row align-h="center" class="p-3">
-        <b-pagination-nav  :pages="getPagesLinks" use-router ></b-pagination-nav>
-    </b-row>
+<!--    <b-row align-h="center" class="p-3">-->
+<!--        <b-pagination-nav  :pages="getPagesLinks" use-router ></b-pagination-nav>-->
+<!--    </b-row>-->
     </b-container>
 </template>
 
@@ -32,7 +32,7 @@
     export default {
         name: "ReviewDisplay",
         components: {ProblemsForm, ReviewForm, TeacherForm, ReviewList, MostDiscussedList, FAQ},
-        computed: mapGetters(["getPagesLinks"])
+        computed: mapGetters(["getPagesLinks"]),
     }
 </script>
 

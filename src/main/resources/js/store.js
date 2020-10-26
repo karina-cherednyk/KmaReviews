@@ -25,6 +25,7 @@ export default new Vuex.Store({
                 review
             ]
         },
+
         addReviewPageMutation(state, reviews) {
             const targetReviews = state.reviews
                 .concat(reviews)
@@ -47,7 +48,8 @@ export default new Vuex.Store({
             const result = await reviewApi.add(review)
             const data = await result.json()
             commit('addReviewMutation', data)
-        },
+        }
+        ,
         async loadPageAction({commit, state}) {
             const response = await reviewApi.page(state.currentPage + 1)
             const data = await response.json()

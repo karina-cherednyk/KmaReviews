@@ -51,9 +51,12 @@
                 evt.preventDefault()
                 const review = {
                     text : this.review,
-                    teacher: {id: parseInt(this.teacher)},
+                    teacher: this.selectedTeacher,
                 }
                 this.addReviewAction(review)
+
+                this.$root.$emit('review_added')
+
                 this.selectedTeacher = null
                 this.review = null
             },

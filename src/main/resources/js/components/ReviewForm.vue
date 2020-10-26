@@ -36,6 +36,7 @@
 <script>
     import { mapActions , mapGetters} from 'vuex'
 
+
     export default {
         name: "ReviewForm",
         computed: mapGetters(['teachersOptions']),
@@ -54,6 +55,7 @@
                     teacher: this.selectedTeacher,
                 }
                 this.addReviewAction(review)
+
 
                 this.$root.$emit('review_added')
 

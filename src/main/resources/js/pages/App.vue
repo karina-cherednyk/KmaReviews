@@ -15,12 +15,13 @@
 
     import 'bootstrap/dist/css/bootstrap.css'
     import 'bootstrap-vue/dist/bootstrap-vue.css'
-    import ReviewDisplay from "pages/ReviewDisplay.vue";
-    import GoTop from '@inotom/vue-go-top';
+    import ReviewDisplay from "pages/ReviewDisplay.vue"
+    import GoTop from '@inotom/vue-go-top'
 
 
     export default {
-        components: {ReviewDisplay, GoTop}
+        components: {ReviewDisplay, GoTop},
+
     }
 </script>
 

@@ -1,8 +1,7 @@
 package com.moop.kmareviews.services;
 
-import com.moop.kmareviews.entities.Course;
 import com.moop.kmareviews.entities.Review;
-import com.moop.kmareviews.dto.ReviewPage;
+import com.moop.kmareviews.dto.ReviewPageDTO;
 import com.moop.kmareviews.entities.Teacher;
 import com.moop.kmareviews.repositories.ReviewRepo;
 import com.moop.kmareviews.repositories.TeacherRepo;
@@ -13,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class ReviewService {
@@ -39,15 +37,20 @@ public class ReviewService {
         return reviewRepo.save(review);
     }
 
-    public List<Review> getAllReviews() {
+    public List<Review> getAllReviews(Teacher teacher) {
+        if(teacher != null) return reviewRepo.findByTeacher(teacher);
         return reviewRepo.findAll();
     }
 
-    public ReviewPage getAllReviews(Pageable pageable) {
-        Page<Review> p = reviewRepo.findAll(pageable);
-        return new ReviewPage(p.getContent(), p.getNumber(), p.getTotalPages());
+    public ReviewPageDTO getAllReviews(Pageable pageable, Long teacherId) {
+        Page<Review> p;
+        if(teacherId != null) p = reviewRepo.findByTeacher(teacherId, pageable);
+        else p = reviewRepo.findAll(pageable);
+        return new ReviewPageDTO(p.getContent(), p.getNumber(), p.getTotalPages());
     }
-
+    public ReviewPageDTO getAllReviews(Pageable pageable) {
+        return getAllReviews(pageable,null);
+    }
 
     public void deleteReview(Long reviewId){    reviewRepo.deleteById(reviewId); }
     public void deleteAllReviews(){    reviewRepo.deleteAll(); }

@@ -7,7 +7,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @Getter
-public class NotUniqueName {
+public class NotUniqueNameDTO {
     List<String> names;
     String message;
 }

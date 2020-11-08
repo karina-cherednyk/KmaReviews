@@ -1,8 +1,7 @@
 package com.moop.kmareviews.services;
 
-import com.moop.kmareviews.dto.TeacherPage;
+import com.moop.kmareviews.dto.TeacherPageDTO;
 import com.moop.kmareviews.entities.Faculty;
-import com.moop.kmareviews.entities.Review;
 import com.moop.kmareviews.entities.Teacher;
 import com.moop.kmareviews.exceptions.NotUniqueNameException;
 import com.moop.kmareviews.repositories.ReviewRepo;
@@ -21,12 +20,10 @@ import org.springframework.dao.DataIntegrityViolationException;
 @Service
 public class TeacherService {
     private final TeacherRepo teacherRepo;
-    private final ReviewRepo reviewRepo;
 
 
-    public TeacherService(TeacherRepo teacherRepo, ReviewRepo reviewRepo) {
+    public TeacherService(TeacherRepo teacherRepo) {
         this.teacherRepo = teacherRepo;
-        this.reviewRepo = reviewRepo;
     }
 
     public void addTeachers(List<Teacher> teachers) throws NotUniqueNameException {
@@ -52,23 +49,16 @@ public class TeacherService {
         }
     }
     public void deleteTeacher(Long teacherId){  teacherRepo.deleteById(teacherId);}
-    public List<Teacher> getAllTeachers(){return teacherRepo.findAll();}
-    public List<Review> getReviewsByTeacher(Teacher t){
-        return reviewRepo.findReviewByTeacher(t);
-    }
 
-
-    public TeacherPage getAllTeachersPageable(Pageable pageable) {
-        Page<Teacher> p = teacherRepo.findAll(pageable);
-        return new TeacherPage(p.getContent(), p.getNumber(), p.getTotalPages());
-    }
-
-    public TeacherPage getAllTeachersByFacultyPageable(Long facultyId, Pageable pageable) {
-        Page<Teacher> p = teacherRepo.findByFacultyPageable(facultyId, pageable);
-        return new TeacherPage(p.getContent(), p.getNumber(), p.getTotalPages());
+    public TeacherPageDTO getAllTeachers(Long facultyId, Pageable pageable) {
+        Page<Teacher> p;
+        if(facultyId == null) p = teacherRepo.findAll(pageable);
+        else p = teacherRepo.findByFacultyPageable(facultyId, pageable);
+        return new TeacherPageDTO(p.getContent(), p.getNumber(), p.getTotalPages());
     }
 
     public List<Teacher> getAllTeachers(Faculty faculty) {
+        if(faculty == null) return teacherRepo.findAll();
         return teacherRepo.findByFaculty(faculty);
     }
 }

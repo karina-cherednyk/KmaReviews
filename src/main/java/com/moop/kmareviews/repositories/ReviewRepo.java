@@ -2,10 +2,17 @@ package com.moop.kmareviews.repositories;
 
 import com.moop.kmareviews.entities.Review;
 import com.moop.kmareviews.entities.Teacher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 public interface ReviewRepo extends JpaRepository<Review, Long>{
-    List<Review> findReviewByTeacher(Teacher teacher);
+    List<Review> findByTeacher(Teacher teacher);
+
+    @Query(value = "SELECT * FROM REVIEW WHERE TEACHER_ID = :teacherId", nativeQuery = true)
+    Page<Review> findByTeacher(@Param("teacherId") long facultyId, Pageable pageable);
 }

@@ -34,7 +34,7 @@
             this.updateTeacherPage()
         },
         mounted() {
-            this.$root.$on('review_added', () => { // here you need to use the arrow function
+            this.$root.$on('review_added', () => {
                 this.updateTeacherPage()
             })
         }

@@ -1,13 +1,12 @@
 package com.moop.kmareviews.controllers;
 
-import com.moop.kmareviews.dto.ReviewPage;
+import com.moop.kmareviews.dto.ReviewPageDTO;
 import com.moop.kmareviews.entities.Review;
+import com.moop.kmareviews.entities.Teacher;
 import com.moop.kmareviews.services.ReviewService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,26 +27,27 @@ public class ReviewController {
         return reviewService.addReview(review);
     }
 
-    @GetMapping
-    public List<Review> getAllReviews(){
-        return reviewService.getAllReviews();
+    @GetMapping("all")
+    public List<Review> getAllReviews(@RequestParam(value = "teacher_id", required = false)Teacher teacher){
+        return reviewService.getAllReviews(teacher);
     }
 
-    @GetMapping("page")
-    public ReviewPage getAllReviews(
-            @PageableDefault(size = PER_PAGE, sort = { "id" }, direction = Sort.Direction.DESC) Pageable pageable
+    @GetMapping("pageable")
+    public ReviewPageDTO getAllReviews(
+            @PageableDefault(size = PER_PAGE, sort = { "id" }, direction = Sort.Direction.DESC) Pageable pageable,
+            @RequestParam(value = "teacher_id", required = false) Long teacherId
     ) {
-        return reviewService.getAllReviews(pageable);
+        return reviewService.getAllReviews(pageable, teacherId);
     }
-
-    @DeleteMapping("{id}")
-    public void deleteReview(@PathVariable Long id){reviewService.deleteReview(id);}
 
     @DeleteMapping
+    public void deleteReview(@RequestParam("message_id") Long id){reviewService.deleteReview(id);}
+
+    @DeleteMapping("all")
     public void deleteAllReviews(){ reviewService.deleteAllReviews();}
 
-    @GetMapping("{id}")
-    public Review getReview(@PathVariable("id") Review review){
+    @GetMapping
+    public Review getReview(@RequestParam("review_id") Review review){
         return review;
     }
 }

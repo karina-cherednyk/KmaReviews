@@ -1,7 +1,7 @@
 package com.moop.kmareviews.controllers;
 
-import com.moop.kmareviews.dto.FacultyPage;
-import com.moop.kmareviews.dto.NotUniqueName;
+import com.moop.kmareviews.dto.FacultyPageDTO;
+import com.moop.kmareviews.dto.NotUniqueNameDTO;
 import com.moop.kmareviews.entities.Faculty;
 import com.moop.kmareviews.exceptions.NotUniqueNameException;
 import com.moop.kmareviews.services.FacultyService;
@@ -25,7 +25,7 @@ public class FacultyController {
         this.facultyService = facultyService;
     }
 
-    @PostMapping("many")
+    @PostMapping("all")
     public void addFaculties(@RequestBody List<Faculty> faculties) throws NotUniqueNameException {
         facultyService.addFaculties(faculties);
     }
@@ -35,24 +35,26 @@ public class FacultyController {
         facultyService.addFaculty(faculty);
     }
 
-    @DeleteMapping("{id}")
-    public void deleteFaculty(@PathVariable Long id){facultyService.deleteFaculty(id);}
+    @DeleteMapping
+    public void deleteFaculty(@RequestParam("faculty_id") Long id){facultyService.deleteFaculty(id);}
 
 
-    @GetMapping
-    public List<Faculty> getAllFaculties(){ return facultyService.getAllFaculties();}
+    @GetMapping("all")
+    public List<Faculty> getAllFaculties(){
+        return facultyService.getAllFaculties();
+    }
 
-    @GetMapping("page")
-    public FacultyPage getAllFacultiesPageable(
+    @GetMapping("pageable")
+    public FacultyPageDTO getAllFacultiesPageable(
             @PageableDefault(size = PER_PAGE, sort = { "name" }, direction = Sort.Direction.ASC) Pageable pageable
     ) {
-        return facultyService.getAllFacultiesPageable(pageable);
+        return facultyService.getAllFaculties(pageable);
     }
 
     @ExceptionHandler(NotUniqueNameException.class)
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
     @ResponseBody
-    public NotUniqueName handleException(NotUniqueNameException ex) {
-        return new NotUniqueName(ex.getNames(), "Not unique faculty names");
+    public NotUniqueNameDTO handleException(NotUniqueNameException ex) {
+        return new NotUniqueNameDTO(ex.getNames(), "Not unique faculty names");
     }
 }

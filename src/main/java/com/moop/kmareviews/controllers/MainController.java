@@ -3,7 +3,7 @@ package com.moop.kmareviews.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.moop.kmareviews.dto.ReviewPage;
+import com.moop.kmareviews.dto.ReviewPageDTO;
 import com.moop.kmareviews.entities.Teacher;
 import com.moop.kmareviews.services.ReviewService;
 import com.moop.kmareviews.services.TeacherService;
@@ -39,8 +39,8 @@ public class MainController {
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
 
         PageRequest pageRequest = PageRequest.of(0, ReviewController.PER_PAGE, sort);
-        ReviewPage reviewPage = reviewService.getAllReviews(pageRequest);
-        List<Teacher> teacherList = teacherService.getAllTeachers();
+        ReviewPageDTO reviewPage = reviewService.getAllReviews(pageRequest);
+        List<Teacher> teacherList = teacherService.getAllTeachers(null);
 
         String reviews = reviewWriter.writeValueAsString(reviewPage.getReviews());
         String teachers = reviewWriter.writeValueAsString(teacherList);

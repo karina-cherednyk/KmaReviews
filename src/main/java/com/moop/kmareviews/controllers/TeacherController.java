@@ -1,6 +1,6 @@
 package com.moop.kmareviews.controllers;
-import com.moop.kmareviews.dto.NotUniqueName;
-import com.moop.kmareviews.dto.TeacherPage;
+import com.moop.kmareviews.dto.NotUniqueNameDTO;
+import com.moop.kmareviews.dto.TeacherPageDTO;
 import com.moop.kmareviews.entities.Faculty;
 import com.moop.kmareviews.entities.Review;
 import com.moop.kmareviews.entities.Teacher;
@@ -31,11 +31,7 @@ public class TeacherController {
         return teacherService.addTeacher(teacher);
     }
 
-    @PutMapping("/{tid}/to/{fid}")
-    public Teacher updateTeacherFaculty(@PathVariable("tid") Teacher teacher, @PathVariable("fid")Faculty faculty) throws NotUniqueNameException {
-        teacher.setFaculty(faculty);
-        return teacherService.addTeacher(teacher);
-    }
+
 
     @PostMapping("many")
     public void addTeachers(@RequestBody List<Teacher> teachers) throws NotUniqueNameException {
@@ -45,47 +41,38 @@ public class TeacherController {
     @ExceptionHandler(NotUniqueNameException.class)
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
     @ResponseBody
-    public NotUniqueName handleException(NotUniqueNameException ex) {
-        return new NotUniqueName(ex.getNames(), "Not unique teacher names");
+    public NotUniqueNameDTO handleException(NotUniqueNameException ex) {
+        return new NotUniqueNameDTO(ex.getNames(), "Not unique teacher names");
     }
 
-    @GetMapping
-    public List<Teacher> getAllTeachers(){ return teacherService.getAllTeachers();}
+    @GetMapping("all")
+    public List<Teacher> getAllTeachers(@RequestParam(value = "faculty_id", required = false) Faculty faculty){ return teacherService.getAllTeachers(faculty);}
 
-    @DeleteMapping("{id}")
-    public void deleteTeacher(@PathVariable Long id){
+    @DeleteMapping
+    public void deleteTeacher(@RequestParam("teacher_id") Long id){
         teacherService.deleteTeacher(id);
     }
 
-    @GetMapping("{id}")
-    public Teacher getTeacher(@PathVariable("id") Teacher teacher){
+    @GetMapping
+    public Teacher getTeacher(@RequestParam("teacher_id") Teacher teacher){
         return teacher;
     }
 
-    @GetMapping("{id}/reviews")
-    public List<Review> getReviewsByTeacher(@PathVariable("id") Teacher teacher){
-        return teacherService.getReviewsByTeacher(teacher);
+
+
+    @PutMapping
+    public Teacher updateTeacherFaculty(@RequestParam("teacher_id") Teacher teacher, @RequestParam("faculty_id")Faculty faculty) throws NotUniqueNameException {
+        teacher.setFaculty(faculty);
+        return teacherService.addTeacher(teacher);
     }
 
-
-    @GetMapping("page")
-    public TeacherPage getAllTeachers(
-            @PageableDefault(size = PER_PAGE, sort = { "name" }, direction = Sort.Direction.ASC) Pageable pageable
+    @GetMapping("pageable")
+    public TeacherPageDTO getAllTeachers(
+            @PageableDefault(size = PER_PAGE, sort = { "name" }, direction = Sort.Direction.ASC) Pageable pageable, @RequestParam(value = "faculty_id", required = false) Long facultyId
     ) {
-        return teacherService.getAllTeachersPageable(pageable);
+        return teacherService.getAllTeachers(facultyId, pageable);
     }
 
-    @GetMapping("from/{fid}/page")
-    public TeacherPage getAllTeachersPageable(
-            @PageableDefault(size = PER_PAGE, sort = { "name" }, direction = Sort.Direction.ASC) Pageable pageable, @PathVariable("fid") Long facultyId
-    ) {
-        return teacherService.getAllTeachersByFacultyPageable(facultyId, pageable);
-    }
 
-    @GetMapping("from/{fid}")
-    public List<Teacher> getAllTeachers(
-            @PathVariable("fid") Faculty faculty
-    ) {
-        return teacherService.getAllTeachers(faculty);
-    }
+
 }

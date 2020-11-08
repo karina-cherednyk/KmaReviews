@@ -14,9 +14,7 @@
             <problems-form/>
         </b-col>
     </b-row>
-<!--    <b-row align-h="center" class="p-3">-->
-<!--        <b-pagination-nav  :pages="getPagesLinks" use-router ></b-pagination-nav>-->
-<!--    </b-row>-->
+
     </b-container>
 </template>
 

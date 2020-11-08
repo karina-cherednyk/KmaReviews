@@ -15,7 +15,7 @@ public interface TeacherRepo extends JpaRepository<Teacher, Long> {
     List<Teacher> findByFaculty(Faculty faculty);
 
     @Query(value = "SELECT * FROM TEACHER WHERE FACULTY_ID = :faculty", nativeQuery = true)
-    Page<Teacher> findByFacultyPageable(@Param("faculty") Long facultyId, Pageable pageable);
+    Page<Teacher> findByFacultyPageable(@Param("faculty") long facultyId, Pageable pageable);
 }
 
 

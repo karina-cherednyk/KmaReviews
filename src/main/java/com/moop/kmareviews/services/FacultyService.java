@@ -1,6 +1,6 @@
 package com.moop.kmareviews.services;
 
-import com.moop.kmareviews.dto.FacultyPage;
+import com.moop.kmareviews.dto.FacultyPageDTO;
 import com.moop.kmareviews.entities.Faculty;
 import com.moop.kmareviews.exceptions.NotUniqueNameException;
 import com.moop.kmareviews.repositories.FacultyRepo;
@@ -43,10 +43,11 @@ public class FacultyService {
         }
     }
     public void deleteFaculty(Long facultyId){  facultyRepo.deleteById(facultyId);}
+
     public List<Faculty> getAllFaculties(){return facultyRepo.findAll();}
-    public FacultyPage getAllFacultiesPageable(Pageable pageable) {
+    public FacultyPageDTO getAllFaculties(Pageable pageable) {
         Page<Faculty> p = facultyRepo.findAll(pageable);
-        return new FacultyPage(p.getContent(), p.getNumber(), p.getTotalPages());
+        return new FacultyPageDTO(p.getContent(), p.getNumber(), p.getTotalPages());
     }
 
 }

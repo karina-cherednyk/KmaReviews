@@ -8,7 +8,7 @@
 </template>
 
 <script>
-    import { mapGetters, mapActions} from 'vuex'
+    import { mapGetters} from 'vuex'
     export default {
         name: "TeacherForm",
         computed: mapGetters(['teachersOptions']),
@@ -22,10 +22,17 @@
             getByTeacher(){
                 if(this.selectedTeacher) this.$router.push('/'+this.selectedTeacher.id+'/reviews')
                 else this.$router.push('/')
-                console.log(this.$route.path)
             },
+            updateTeacher(teacher){
+                this.selectedTeacher = teacher
+            }
 
         },
+        mounted() {
+            this.$root.$on('teacher_set', (teacher) => {
+                this.updateTeacher(teacher)
+            })
+        }
 
     }
 </script>

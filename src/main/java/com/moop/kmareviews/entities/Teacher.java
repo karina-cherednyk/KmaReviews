@@ -1,5 +1,9 @@
 package com.moop.kmareviews.entities;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 
 
@@ -19,6 +23,10 @@ public class Teacher {
     @Column(unique=true)
     private String name;
 
-
+    @ManyToOne
+    @JoinColumn(name = "faculty_id")
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Faculty faculty;
 
 }

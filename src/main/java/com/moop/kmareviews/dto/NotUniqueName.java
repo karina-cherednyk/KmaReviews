@@ -7,8 +7,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @Getter
-public class NotUniqueTeacherName {
-    List<String> teachers;
+public class NotUniqueName {
+    List<String> names;
     String message;
-
 }

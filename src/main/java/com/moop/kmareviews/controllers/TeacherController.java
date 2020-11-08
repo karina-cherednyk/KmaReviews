@@ -1,19 +1,25 @@
 package com.moop.kmareviews.controllers;
-import com.moop.kmareviews.dto.NotUniqueTeacherName;
+import com.moop.kmareviews.dto.NotUniqueName;
+import com.moop.kmareviews.dto.TeacherPage;
+import com.moop.kmareviews.entities.Faculty;
 import com.moop.kmareviews.entities.Review;
 import com.moop.kmareviews.entities.Teacher;
-import com.moop.kmareviews.exceptions.NotUniqueTeacherNameException;
-import com.moop.kmareviews.services.ReviewService;
+import com.moop.kmareviews.exceptions.NotUniqueNameException;
 import com.moop.kmareviews.services.TeacherService;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("teacher")
 public class TeacherController {
+
+    public static final int PER_PAGE = 5;
+
     private final TeacherService teacherService;
 
     public TeacherController(TeacherService teacherService) {
@@ -21,20 +27,26 @@ public class TeacherController {
     }
 
     @PostMapping
-    public Teacher addTeacher(@RequestBody Teacher teacher){
+    public Teacher addTeacher(@RequestBody Teacher teacher) throws NotUniqueNameException {
+        return teacherService.addTeacher(teacher);
+    }
+
+    @PutMapping("/{tid}/to/{fid}")
+    public Teacher updateTeacherFaculty(@PathVariable("tid") Teacher teacher, @PathVariable("fid")Faculty faculty) throws NotUniqueNameException {
+        teacher.setFaculty(faculty);
         return teacherService.addTeacher(teacher);
     }
 
     @PostMapping("many")
-    public void addTeachers(@RequestBody List<Teacher> teachers) throws NotUniqueTeacherNameException {
+    public void addTeachers(@RequestBody List<Teacher> teachers) throws NotUniqueNameException {
        teacherService.addTeachers(teachers);
     }
 
-    @ExceptionHandler(NotUniqueTeacherNameException.class)
+    @ExceptionHandler(NotUniqueNameException.class)
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
     @ResponseBody
-    public NotUniqueTeacherName handleException(NotUniqueTeacherNameException ex) {
-        return new NotUniqueTeacherName(ex.getTeachers(), "Not unique names");
+    public NotUniqueName handleException(NotUniqueNameException ex) {
+        return new NotUniqueName(ex.getNames(), "Not unique teacher names");
     }
 
     @GetMapping
@@ -53,5 +65,27 @@ public class TeacherController {
     @GetMapping("{id}/reviews")
     public List<Review> getReviewsByTeacher(@PathVariable("id") Teacher teacher){
         return teacherService.getReviewsByTeacher(teacher);
+    }
+
+
+    @GetMapping("page")
+    public TeacherPage getAllTeachers(
+            @PageableDefault(size = PER_PAGE, sort = { "name" }, direction = Sort.Direction.ASC) Pageable pageable
+    ) {
+        return teacherService.getAllTeachersPageable(pageable);
+    }
+
+    @GetMapping("from/{fid}/page")
+    public TeacherPage getAllTeachersPageable(
+            @PageableDefault(size = PER_PAGE, sort = { "name" }, direction = Sort.Direction.ASC) Pageable pageable, @PathVariable("fid") Long facultyId
+    ) {
+        return teacherService.getAllTeachersByFacultyPageable(facultyId, pageable);
+    }
+
+    @GetMapping("from/{fid}")
+    public List<Teacher> getAllTeachers(
+            @PathVariable("fid") Faculty faculty
+    ) {
+        return teacherService.getAllTeachers(faculty);
     }
 }

@@ -1,4 +1,4 @@
-package com.moop.kmareviews.entities;
+package com.moop.kmareviews.db_side.entities;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
@@ -14,6 +14,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @EqualsAndHashCode(of = {"id","name"})
 @ToString(of = {"id"})
+@RequiredArgsConstructor
 public class Teacher {
 
     @Id
@@ -21,6 +22,7 @@ public class Teacher {
     private Long id;
 
     @Column(unique=true)
+    @NonNull
     private String name;
 
     @ManyToOne

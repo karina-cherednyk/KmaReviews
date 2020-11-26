@@ -1,4 +1,4 @@
-package com.moop.kmareviews.dto;
+package com.moop.kmareviews.server_side.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

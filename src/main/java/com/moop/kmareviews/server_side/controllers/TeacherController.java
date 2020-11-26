@@ -1,10 +1,9 @@
-package com.moop.kmareviews.controllers;
-import com.moop.kmareviews.dto.NotUniqueNameDTO;
-import com.moop.kmareviews.dto.TeacherPageDTO;
-import com.moop.kmareviews.entities.Faculty;
-import com.moop.kmareviews.entities.Review;
-import com.moop.kmareviews.entities.Teacher;
-import com.moop.kmareviews.exceptions.NotUniqueNameException;
+package com.moop.kmareviews.server_side.controllers;
+import com.moop.kmareviews.server_side.dto.NotUniqueNameDTO;
+import com.moop.kmareviews.server_side.dto.TeacherPageDTO;
+import com.moop.kmareviews.db_side.entities.Faculty;
+import com.moop.kmareviews.db_side.entities.Teacher;
+import com.moop.kmareviews.server_side.exceptions.NotUniqueNameException;
 import com.moop.kmareviews.services.TeacherService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;

@@ -1,7 +1,7 @@
-package com.moop.kmareviews.repositories;
+package com.moop.kmareviews.db_side.repositories;
 
-import com.moop.kmareviews.entities.Faculty;
-import com.moop.kmareviews.entities.Teacher;
+import com.moop.kmareviews.db_side.entities.Faculty;
+import com.moop.kmareviews.db_side.entities.Teacher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

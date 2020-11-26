@@ -1,6 +1,6 @@
-package com.moop.kmareviews.dto;
+package com.moop.kmareviews.server_side.dto;
 
-import com.moop.kmareviews.entities.Faculty;
+import com.moop.kmareviews.db_side.entities.Teacher;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -8,8 +8,8 @@ import java.util.List;
 
 @Getter
 @AllArgsConstructor
-public class FacultyPageDTO {
-    private List<Faculty> faculties;
+public class TeacherPageDTO {
+    private List<Teacher> teachers;
     private int currentPage;
     private int totalPages;
 }

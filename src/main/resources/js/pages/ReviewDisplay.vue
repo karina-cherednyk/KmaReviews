@@ -1,7 +1,6 @@
 <template>
     <b-container class="p-2 m-2" style="max-width: 100%">
     <b-row>
-        <!--<b-col col lg="3" class="d-md-none d-lg-block"> <most-discussed-list/> </b-col>-->
         <b-col col lg="3" class="d-md-none d-lg-block" ><FAQ  /></b-col>
          <b-col lg="5">
              <b-nav >

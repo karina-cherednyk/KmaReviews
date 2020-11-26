@@ -6,12 +6,13 @@ import reviewApi from "api/reviewApi";
 
 export default new Vuex.Store({
     state: {
-        teachers, reviews, totalPages, currentPage
+        teachers, reviews, totalPages, currentPage, faculties
     },
     getters: {
         sortedReviews: state => (state.reviews || []).sort((a, b) => -(a.id - b.id)),
         sortedTeachers: state => (state.teachers || []).sort((a, b) => (a.name - b.name)),
         teachersOptions: state => state.teachers.reduce((acc, x) => [...acc,{text: x.name, value: x}] , [{text: 'Оберіть викладача', value:null}]),
+        facultyOptions: state => state.faculties.reduce((acc, x) => [...acc,{text: x.name, value: x}] , [{text: 'Оберіть факультет', value:null}]),
         getPagesLinks: state => {
             let pagesLink = []
             for(let i =0; i<totalPages+1; i++) pagesLink.push('?page='+i)

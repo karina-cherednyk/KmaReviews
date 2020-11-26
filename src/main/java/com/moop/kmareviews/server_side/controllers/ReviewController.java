@@ -1,8 +1,8 @@
-package com.moop.kmareviews.controllers;
+package com.moop.kmareviews.server_side.controllers;
 
-import com.moop.kmareviews.dto.ReviewPageDTO;
-import com.moop.kmareviews.entities.Review;
-import com.moop.kmareviews.entities.Teacher;
+import com.moop.kmareviews.server_side.dto.ReviewPageDTO;
+import com.moop.kmareviews.db_side.entities.Review;
+import com.moop.kmareviews.db_side.entities.Teacher;
 import com.moop.kmareviews.services.ReviewService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;

@@ -1,10 +1,10 @@
 package com.moop.kmareviews.services;
 
-import com.moop.kmareviews.entities.Review;
-import com.moop.kmareviews.dto.ReviewPageDTO;
-import com.moop.kmareviews.entities.Teacher;
-import com.moop.kmareviews.repositories.ReviewRepo;
-import com.moop.kmareviews.repositories.TeacherRepo;
+import com.moop.kmareviews.db_side.entities.Review;
+import com.moop.kmareviews.server_side.dto.ReviewPageDTO;
+import com.moop.kmareviews.db_side.entities.Teacher;
+import com.moop.kmareviews.db_side.repositories.ReviewRepo;
+import com.moop.kmareviews.db_side.repositories.TeacherRepo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -41,7 +41,9 @@ public class ReviewService {
         if(teacher != null) return reviewRepo.findByTeacher(teacher);
         return reviewRepo.findAll();
     }
-
+    public List<Review> getAllReviews() {
+        return reviewRepo.findAll();
+    }
     public ReviewPageDTO getAllReviews(Pageable pageable, Long teacherId) {
         Page<Review> p;
         if(teacherId != null) p = reviewRepo.findByTeacher(teacherId, pageable);
@@ -54,6 +56,5 @@ public class ReviewService {
 
     public void deleteReview(Long reviewId){    reviewRepo.deleteById(reviewId); }
     public void deleteAllReviews(){    reviewRepo.deleteAll(); }
-
 
 }

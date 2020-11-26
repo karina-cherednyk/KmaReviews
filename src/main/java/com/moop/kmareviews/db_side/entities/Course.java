@@ -1,11 +1,8 @@
-package com.moop.kmareviews.entities;
+package com.moop.kmareviews.db_side.entities;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table

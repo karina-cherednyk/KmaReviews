@@ -1,4 +1,4 @@
-package com.moop.kmareviews.exceptions;
+package com.moop.kmareviews.server_side.exceptions;
 
 import java.util.List;
 

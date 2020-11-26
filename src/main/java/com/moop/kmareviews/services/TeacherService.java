@@ -1,15 +1,15 @@
 package com.moop.kmareviews.services;
 
-import com.moop.kmareviews.dto.TeacherPageDTO;
-import com.moop.kmareviews.entities.Faculty;
-import com.moop.kmareviews.entities.Teacher;
-import com.moop.kmareviews.exceptions.NotUniqueNameException;
-import com.moop.kmareviews.repositories.ReviewRepo;
-import com.moop.kmareviews.repositories.TeacherRepo;
+import com.moop.kmareviews.server_side.dto.TeacherPageDTO;
+import com.moop.kmareviews.db_side.entities.Faculty;
+import com.moop.kmareviews.db_side.entities.Teacher;
+import com.moop.kmareviews.server_side.exceptions.NotUniqueNameException;
+import com.moop.kmareviews.db_side.repositories.TeacherRepo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -58,7 +58,14 @@ public class TeacherService {
     }
 
     public List<Teacher> getAllTeachers(Faculty faculty) {
-        if(faculty == null) return teacherRepo.findAll();
-        return teacherRepo.findByFaculty(faculty);
+        if(faculty == null) return getAllTeachers();
+        List<Teacher> ts =  teacherRepo.findByFaculty(faculty);
+        ts.sort(Comparator.comparing(Teacher::getName));
+        return  ts;
+    }
+    public List<Teacher> getAllTeachers() {
+        List<Teacher> ts =  teacherRepo.findAll();
+        ts.sort(Comparator.comparing(Teacher::getName));
+        return  ts;
     }
 }

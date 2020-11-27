@@ -37,7 +37,8 @@
         methods: {
 
             getByTeacher(){
-                if(this.selectedTeacher) this.$router.push('/'+this.selectedTeacher.id+'/reviews')
+                if(this.selectedTeacher) this.$router.push('/teacher/'+this.selectedTeacher.id)
+                else if(this.selectedFaculty)  this.$router.push('/faculty/'+this.selectedFaculty.id)
                 else this.$router.push('/')
             },
             updateTeacher(teacher){

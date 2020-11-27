@@ -18,8 +18,11 @@
         components: {ReviewRow},
         methods: {
             async updateTeacherPage() {
-                const id = this.$route.params.id
-                const data = await reviewApi.getByTeacher(id)
+                const teacher_id = this.$route.params.teacher_id
+                const faculty_id = this.$route.params.faculty_id
+                let data  = null
+                if(teacher_id != null) data = await reviewApi.getByTeacher(teacher_id)
+                else  data = await reviewApi.getByFaculty(faculty_id)
                 reviews = await data.json()
                 this.sortedReviews =  (reviews || []).sort((a, b) => -(a.id - b.id))
                 this.$forceUpdate()

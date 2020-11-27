@@ -22,7 +22,9 @@ Vue.use(VueRouter)
 const router = new VueRouter( {
     routes: [
     { path: '/', component: ReviewList },
-    { path: '/:id?/reviews', component: TeacherReviewList },
+    { path: '/teacher/:teacher_id', component: ReviewList },
+    { path: '/faculty/:faculty_id', component: ReviewList },
+
     ]
 })
 

@@ -35,10 +35,12 @@ public class ReviewController {
     @GetMapping("pageable")
     public ReviewPageDTO getAllReviews(
             @PageableDefault(size = PER_PAGE, sort = { "id" }, direction = Sort.Direction.DESC) Pageable pageable,
-            @RequestParam(value = "teacher_id", required = false) Long teacherId
+            @RequestParam(value = "teacher_id", required = false) Long teacherId,   @RequestParam(value = "faculty_id", required = false) Long facultyId
     ) {
-        return reviewService.getAllReviews(pageable, teacherId);
+        return reviewService.getAllReviews(pageable, teacherId, facultyId);
     }
+
+
 
     @DeleteMapping
     public void deleteReview(@RequestParam("message_id") Long id){reviewService.deleteReview(id);}

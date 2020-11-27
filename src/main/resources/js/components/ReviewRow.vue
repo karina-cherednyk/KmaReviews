@@ -14,7 +14,7 @@
         props: ['review'],
         methods: {
             findReviews() {
-                this.$router.push('/'+this.review.teacher.id+'/reviews')
+                this.$router.push('/teacher/'+this.review.teacher.id)
                 this.$root.$emit('teacher_set', this.review.teacher)
             }
         }

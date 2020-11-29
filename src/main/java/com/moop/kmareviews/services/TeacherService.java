@@ -74,13 +74,16 @@ public class TeacherService {
     }
 
     public Teacher updateTeacher(Teacher teacher) throws Exception, NotUniqueNameException {
-        Optional<Teacher> t = teacherRepo.findById(teacher.getId());
-        if(t.isEmpty()) throw new Exception("Teacher not found");
-        Teacher res = t.get();
+        Optional<Teacher> daoTeacher = teacherRepo.findById(teacher.getId());
+       // if(daoTeacher.isEmpty()) throw new Exception("Teacher not found");
+        if(!daoTeacher.isPresent()) {
+            throw new Exception("Teacher not found");
+        }
+        Teacher res = daoTeacher.get();
         if(teacher.getFaculty() == null && teacher.getName() == null)  return res;
         if(teacher.getFaculty() != null) {
             Optional<Faculty> f = facultyRepo.findById(teacher.getFaculty().getId());
-            if(f.isPresent())  res.setFaculty(f.get());
+            f.ifPresent(res::setFaculty);
         }
         if(teacher.getName() != null) res.setName(teacher.getName());
         return  addTeacher(res);

@@ -69,7 +69,6 @@ public class TeacherController {
 
     @PutMapping
     public Teacher updateTeacher(@RequestBody Teacher teacher) throws NotUniqueNameException, Exception {
-
         return teacherService.updateTeacher(teacher);
     }
 

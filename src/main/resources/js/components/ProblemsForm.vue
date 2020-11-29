@@ -31,6 +31,7 @@
 </template>
 
 <script>
+    import reviewApi from "api/reviewApi";
     export default {
         name: "ProblemsForm",
         data() {
@@ -42,6 +43,7 @@
         methods: {
             onSubmit(evt){
                 evt.preventDefault()
+                reviewApi.sendMessage(this.topic.toUpperCase()+':\n'+this.text)
                 this.topic = ""
                 this.text = " "
             },

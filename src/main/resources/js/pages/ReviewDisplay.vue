@@ -1,20 +1,24 @@
 <template>
     <b-container class="p-2 m-2" style="max-width: 100%">
-        <b-row class="d-md-none" >
-                <b-button class="ml-3" v-b-toggle.input_collapse  variant="outline-light bg-primary" >Show input forms</b-button>
-                <b-collapse id="input_collapse">
-                    <input-form></input-form>
-                </b-collapse>
-        </b-row>
+        <b-container class="d-lg-none " >
+            <b-row>
+            <b-button class="mb-1 w-100" v-b-toggle.input_collapse  variant="outline-light bg-primary" >Залишити відгук</b-button>
+            </b-row>
+
+            <b-collapse id="input_collapse">
+                <input-form></input-form>
+            </b-collapse>
+
+        </b-container>
         <b-row>
-            <b-col col lg="3" class="d-none d-md-block" ><FAQ  /></b-col>
+            <b-col col lg="3" class="d-none d-lg-block" ><FAQ  /></b-col>
              <b-col lg="5">
                  <b-nav >
                      <teacher-form class="form-inline mt-2 mb-2"/>
                  </b-nav>
                  <router-view></router-view>
              </b-col>
-            <b-col lg="4" class="d-none d-md-block">
+            <b-col lg="4" class="d-none d-lg-block">
                 <input-form></input-form>
             </b-col>
         </b-row>

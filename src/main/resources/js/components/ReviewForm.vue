@@ -24,6 +24,7 @@
                 ></b-form-textarea>
             </b-form-group>
 
+
             <b-button type="submit" variant="primary">Відправити</b-button>
             <b-button type="reset" variant="danger">Очистити форму</b-button>
 
@@ -59,6 +60,15 @@
 
                 this.selectedTeacher = null
                 this.review = null
+
+                this.$bvToast.toast('Відгук було відправлено', {
+                    title: `Успіх`,
+                    variant: 'success',
+                    solid: true
+                })
+            },
+            countDownChanged(dismissCountDown) {
+                this.dismissCountDown = dismissCountDown
             },
             onReset(evt){
                 evt.preventDefault()

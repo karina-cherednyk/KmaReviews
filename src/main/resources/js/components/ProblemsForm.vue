@@ -22,7 +22,6 @@
                         rows="6"
                 ></b-form-textarea>
             </b-form-group>
-
             <b-button type="submit" variant="primary">Повідомити</b-button>
             <b-button type="reset" variant="danger">Очистити форму</b-button>
 
@@ -46,6 +45,11 @@
                 reviewApi.sendMessage(this.topic.toUpperCase()+':\n'+this.text)
                 this.topic = ""
                 this.text = " "
+                this.$bvToast.toast('Повідомлення було відправлено', {
+                    title: `Успіх`,
+                    variant: 'success',
+                    solid: true
+                })
             },
             onReset(evt){
                 evt.preventDefault()

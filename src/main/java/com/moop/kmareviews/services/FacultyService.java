@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -54,5 +55,7 @@ public class FacultyService {
         Page<Faculty> p = facultyRepo.findAll(pageable);
         return new FacultyPageDTO(p.getContent(), p.getNumber(), p.getTotalPages());
     }
-
+    public Optional<Faculty> getById(Long id){
+        return facultyRepo.findById(id);
+    }
 }

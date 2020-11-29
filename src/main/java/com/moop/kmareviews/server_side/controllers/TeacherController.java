@@ -4,6 +4,7 @@ import com.moop.kmareviews.server_side.dto.TeacherPageDTO;
 import com.moop.kmareviews.db_side.entities.Faculty;
 import com.moop.kmareviews.db_side.entities.Teacher;
 import com.moop.kmareviews.server_side.exceptions.NotUniqueNameException;
+import com.moop.kmareviews.services.FacultyService;
 import com.moop.kmareviews.services.TeacherService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -12,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("teacher")
@@ -43,6 +45,12 @@ public class TeacherController {
     public NotUniqueNameDTO handleException(NotUniqueNameException ex) {
         return new NotUniqueNameDTO(ex.getNames(), "Not unique teacher names");
     }
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+    @ResponseBody
+    public String handleException(Exception ex) {
+        return ex.getMessage();
+    }
 
     @GetMapping("all")
     public List<Teacher> getAllTeachers(@RequestParam(value = "faculty_id", required = false) Faculty faculty){ return teacherService.getAllTeachers(faculty);}
@@ -60,9 +68,9 @@ public class TeacherController {
 
 
     @PutMapping
-    public Teacher updateTeacherFaculty(@RequestParam("teacher_id") Teacher teacher, @RequestParam("faculty_id")Faculty faculty) throws NotUniqueNameException {
-        teacher.setFaculty(faculty);
-        return teacherService.addTeacher(teacher);
+    public Teacher updateTeacher(@RequestBody Teacher teacher) throws NotUniqueNameException, Exception {
+
+        return teacherService.updateTeacher(teacher);
     }
 
     @GetMapping("pageable")

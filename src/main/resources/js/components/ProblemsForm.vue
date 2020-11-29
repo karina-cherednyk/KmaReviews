@@ -8,17 +8,15 @@
                     class="mb-0"
             ></b-form-group>
 
-            <b-form-group id="input-group-3" label="Тема:" label-for="input-topic">
+            <b-form-group label="Тема:" label-for="input-topic">
                 <b-form-input
-                        id="input-topic"
                         v-model="topic"
                         required
                 ></b-form-input>
             </b-form-group>
 
-            <b-form-group id="input-group-2" label="Повідомлення:" label-for="input-problem">
+            <b-form-group label="Повідомлення:" label-for="input-problem">
                 <b-form-textarea
-                        id="input-problem"
                         v-model="text"
                         required
                         rows="6"

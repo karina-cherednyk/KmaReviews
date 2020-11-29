@@ -8,18 +8,16 @@
                     class="mb-0"
             ></b-form-group>
 
-            <b-form-group id="input-group-3" label="Викладач:" label-for="input-teacher">
+            <b-form-group  label="Викладач:" >
                 <b-form-select
-                        id="input-teacher"
                         v-model="selectedTeacher"
                         :options="teachersOptions"
                         required
                 ></b-form-select>
             </b-form-group>
 
-            <b-form-group id="input-group-2" label="Відгук:" label-for="input-review">
+            <b-form-group  label="Відгук:" >
                 <b-form-textarea
-                        id="input-review"
                         v-model="review"
                         required
                         rows="6"

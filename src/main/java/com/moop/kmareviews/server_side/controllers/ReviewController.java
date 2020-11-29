@@ -43,7 +43,7 @@ public class ReviewController {
 
 
     @DeleteMapping
-    public void deleteReview(@RequestParam("message_id") Long id){reviewService.deleteReview(id);}
+    public void deleteReview(@RequestParam("review_id") Long id){reviewService.deleteReview(id);}
 
     @DeleteMapping("all")
     public void deleteAllReviews(){ reviewService.deleteAllReviews();}

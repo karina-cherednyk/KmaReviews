@@ -10,8 +10,6 @@ import VueRouter from "vue-router";
 
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import ReviewList from "components/ReviewList.vue";
-import TeacherReviewList from "components/TeacherReviewList.vue";
-
 
 
 Vue.use(BootstrapVue)

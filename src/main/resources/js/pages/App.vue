@@ -1,7 +1,7 @@
 <template>
     <b-container id="app" style="max-width: 100%" >
 
-        <b-navbar toggleable="lg" class="navbar-expand-md navbar-dark bg-primary">
+        <b-navbar toggleable="sm" class="navbar-expand navbar-dark bg-primary">
             <b-navbar-nav class="collapse navbar-collapse">
                  <h1 class="p-3 text-light">Чесні відгуки на викладачів НаУКМА</h1>
             </b-navbar-nav>
@@ -17,10 +17,11 @@
     import 'bootstrap-vue/dist/bootstrap-vue.css'
     import ReviewDisplay from "pages/ReviewDisplay.vue"
     import GoTop from '@inotom/vue-go-top'
+    import InputForm from "pages/InputForm.vue";
 
 
     export default {
-        components: {ReviewDisplay, GoTop},
+        components: {InputForm, ReviewDisplay, GoTop},
 
     }
 </script>

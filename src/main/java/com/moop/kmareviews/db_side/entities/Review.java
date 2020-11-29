@@ -36,6 +36,6 @@ public class Review{
 
 
     @Column(updatable = false)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "hh:mm dd/mm/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "hh:mm DD/MM/YYYY")
     private LocalDateTime sendTime;
 }
